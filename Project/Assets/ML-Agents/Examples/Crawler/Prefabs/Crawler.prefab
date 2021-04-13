@@ -2817,9 +2817,11 @@ MonoBehaviour:
     m_ActionSpec:
       m_NumContinuousActions: 20
       BranchSizes: 
+    VectorActionSize: 14000000
     VectorActionDescriptions: []
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: bbcd28cb64db74359918183c55bc5844, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 6d5daa6d8ead64c6783faec0865830c6, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: Crawler

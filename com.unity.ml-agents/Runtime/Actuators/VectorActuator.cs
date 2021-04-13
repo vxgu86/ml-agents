@@ -1,3 +1,5 @@
+using System;
+using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace Unity.MLAgents.Actuators
@@ -72,6 +74,19 @@ namespace Unity.MLAgents.Actuators
         public void OnActionReceived(ActionBuffers actionBuffers)
         {
             Profiler.BeginSample("VectorActuator.OnActionReceived");
+            var continousActions = actionBuffers.ContinuousActions;
+            try
+            {
+                for (var i = 0; i < continousActions.Length; i++)
+                {
+                    Utilities.DebugCheckNanAndInfinity(continousActions[i], "action", "OnActionReceived");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.ToString());
+
+            }
             m_ActionBuffers = actionBuffers;
             m_ActionReceiver.OnActionReceived(m_ActionBuffers);
             Profiler.EndSample();

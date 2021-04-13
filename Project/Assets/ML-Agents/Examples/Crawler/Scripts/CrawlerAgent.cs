@@ -1,14 +1,49 @@
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.Barracuda;
+using Unity.Barracuda.Debug;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgentsExamples;
 using Unity.MLAgents.Sensors;
 using Random = UnityEngine.Random;
 
+using System.IO;
+using Unity.Barracuda.ONNX;
+
 [RequireComponent(typeof(JointDriveController))] // Required to set joint forces
 public class CrawlerAgent : Agent
 {
+    public void ExecuteRepro(string onnxFilename, string snapShotFilename)
+    {
+        var rawModel = File.ReadAllBytes(onnxFilename);
+        var converter = new ONNXModelConverter(true);
+        var onnxModel = converter.Convert(rawModel);
+
+        // from ModelOverrider.LoadOnnxModel
+        NNModelData assetData = ScriptableObject.CreateInstance<NNModelData>();
+        using (var memoryStream = new MemoryStream())
+        using (var writer = new BinaryWriter(memoryStream))
+        {
+            ModelWriter.Save(writer, onnxModel);
+            assetData.Value = memoryStream.ToArray();
+        }
+        assetData.name = "Data";
+        assetData.hideFlags = HideFlags.HideInHierarchy;
+
+        var nnModel = ScriptableObject.CreateInstance<NNModel>();
+        nnModel.modelData = assetData;
+
+        // from ModelRunner
+        var barracudaModel = ModelLoader.Load(nnModel);
+        var workerConfiguration = new WorkerFactory.WorkerConfiguration(compareAgainstType: WorkerFactory.Type.CSharpRef, verbose: false, compareLogLevel: CompareOpsUtils.LogLevel.Error, compareEpsilon: 1e-3f);
+        var engine = WorkerFactory.CreateWorker(WorkerFactory.Type.CSharpBurst, barracudaModel, workerConfiguration);
+
+        var inputTensors = BarracudaSnapshot.LoadFromFile(snapShotFilename);
+        engine.Execute(inputTensors);
+
+    }
+
+
 
     [Header("Walk Speed")]
     [Range(0.1f, m_maxWalkingSpeed)]
@@ -70,6 +105,12 @@ public class CrawlerAgent : Agent
 
     public override void Initialize()
     {
+        {
+            var jsonFile = "crawler_repro.json";
+            var onnxFile = "Assets/ML-Agents/Examples/Crawler/TFModels/Failed.onnx";
+            ExecuteRepro(onnxFile, jsonFile);
+        }
+
         SpawnTarget(TargetPrefab, transform.position); //spawn target
 
         m_OrientationCube = GetComponentInChildren<OrientationCubeController>();

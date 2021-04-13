@@ -87,6 +87,18 @@ namespace Unity.MLAgents.Inference
                 return failedModelChecks;
             }
 
+            // foreach (var layer in model.layers)
+            // {
+            //     foreach (var weight in layer.weights)
+            //     {
+            //         if (float.IsNaN(weight) || float.IsInfinity(weight))
+            //         {
+            //             failedModelChecks.Add(FailedCheck.Error($"NaN or Inf weight encountered: {weight}"));
+            //             return failedModelChecks;
+            //         }
+            //     }
+            // }
+
             var hasExpectedTensors = model.CheckExpectedTensors(failedModelChecks);
             if (!hasExpectedTensors)
             {

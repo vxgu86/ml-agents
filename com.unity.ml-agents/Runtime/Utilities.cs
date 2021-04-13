@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using UnityEngine;
 
 namespace Unity.MLAgents
 {
@@ -37,6 +38,11 @@ namespace Unity.MLAgents
             {
                 throw new ArgumentException($"Inifinity {valueCategory} passed to {caller}.");
             }
+
+            // if (Mathf.Abs(value) > 100000.0f)
+            // {
+            //     throw new ArgumentException($"Really big {valueCategory} passed to {caller}.");
+            // }
         }
     }
 }

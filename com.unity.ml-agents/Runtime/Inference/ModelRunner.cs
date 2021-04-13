@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Barracuda;
+using Unity.Barracuda.Debug;
 using UnityEngine.Profiling;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
@@ -88,7 +90,11 @@ namespace Unity.MLAgents.Inference
                         executionDevice = WorkerFactory.Type.CSharpBurst;
                         break;
                 }
-                m_Engine = WorkerFactory.CreateWorker(executionDevice, barracudaModel, m_Verbose);
+
+                var workerConfiguration = new WorkerFactory.WorkerConfiguration(compareAgainstType: WorkerFactory.Type.CSharpRef, verbose: false, compareLogLevel: CompareOpsUtils.LogLevel.Error, compareEpsilon: 1e-3f);
+                // IWorker worker = WorkerFactory.CreateWorker(workerType, builder.model, workerConfiguration);
+                // worker.Execute(input);
+                m_Engine = WorkerFactory.CreateWorker(executionDevice, barracudaModel, workerConfiguration);
             }
             else
             {
@@ -196,6 +202,8 @@ namespace Unity.MLAgents.Inference
             Profiler.BeginSample($"PrepareBarracudaInputs");
             PrepareBarracudaInputs(m_InferenceInputs);
             Profiler.EndSample();
+
+            //BarracudaSnapshot.SaveToFile(m_InputsByName, "bc_in.json");
 
             // Execute the Model
             Profiler.BeginSample($"ExecuteGraph");
