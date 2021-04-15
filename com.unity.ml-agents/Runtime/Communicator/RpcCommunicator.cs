@@ -50,6 +50,7 @@ namespace Unity.MLAgents
 
         /// The Unity to External client.
         UnityToExternalProto.UnityToExternalProtoClient m_Client;
+        Channel m_Channel;
 
         /// <summary>
         /// Initializes a new instance of the RPCCommunicator class.
@@ -140,6 +141,7 @@ namespace Unity.MLAgents
                     Debug.Log($"Unexpected exception when trying to initialize communication: {ex}");
                 }
                 initParametersOut = new UnityRLInitParameters();
+                m_Channel.ShutdownAsync().Wait();
                 return false;
             }
 
@@ -217,9 +219,9 @@ namespace Unity.MLAgents
         UnityInputProto Initialize(int port, UnityOutputProto unityOutput, out UnityInputProto unityInput)
         {
             m_IsOpen = true;
-            var channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
+            m_Channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
 
-            m_Client = new UnityToExternalProto.UnityToExternalProtoClient(channel);
+            m_Client = new UnityToExternalProto.UnityToExternalProtoClient(m_Channel);
             var result = m_Client.Exchange(WrapMessage(unityOutput, 200));
             var inputMessage = m_Client.Exchange(WrapMessage(null, 200));
             unityInput = inputMessage.UnityInput;
@@ -251,6 +253,7 @@ namespace Unity.MLAgents
             try
             {
                 m_Client.Exchange(WrapMessage(null, 400));
+                m_Channel.ShutdownAsync().Wait();
                 m_IsOpen = false;
             }
             catch
