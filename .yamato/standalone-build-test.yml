@@ -13,7 +13,7 @@ test_linux_standalone_{{ editor.version }}_{{ backend.backend }}:
   commands:
     - python3 -m pip install pyyaml --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple
     - python3 -m pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
-    - unity-downloader-cli -u {{ editor.version }} -c editor --wait --fast
+    - unity-downloader-cli -u {{ editor.version }} -c editor -c il2cpp --wait --fast
     - python3 -u -m ml-agents.tests.yamato.standalone_build_tests --build-target=linux --mlagents-scripting-backend={{ backend.backend }}
     - python3 -u -m ml-agents.tests.yamato.standalone_build_tests --build-target=linux --scene=Assets/ML-Agents/Examples/Basic/Scenes/Basic.unity --mlagents-scripting-backend={{ backend.backend }}
     - python3 -u -m ml-agents.tests.yamato.standalone_build_tests --build-target=linux --scene=Assets/ML-Agents/Examples/Match3/Scenes/Match3.unity --mlagents-scripting-backend={{ backend.backend }}
