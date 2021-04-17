@@ -38,5 +38,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--build-target", default="mac", choices=["mac", "linux", "ios", "webgl"]
     )
+    parser.add_argument(
+        "--scripting-backen", default="mono", choices=["mono", "il2cpp"]
+    )
     args = parser.parse_args()
     main(args.scene, args.build_target)
