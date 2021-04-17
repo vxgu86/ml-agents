@@ -42,4 +42,4 @@ test_linux_training_int_{{ editor.version }}_{{ backend.backend }}:
         - "artifacts/testPlayer*/**"
         - "artifacts/models/**"
 {% endfor %}
-{% endfor % }
+{% endfor %}
