@@ -2,7 +2,7 @@
 #define MLA_SUPPORTED_TRAINING_PLATFORM
 #endif
 
-# if MLA_SUPPORTED_TRAINING_PLATFORM
+#if MLA_SUPPORTED_TRAINING_PLATFORM
 using Grpc.Core;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -183,6 +183,8 @@ namespace Unity.MLAgents
 
             UpdateEnvironmentWithInput(input.RlInput);
             initParametersOut = initializationInput.RlInitializationInput.ToUnityRLInitParameters();
+            // Be sure to shut down the grpc channel when the application is quitting.
+            Application.quitting += NotifyQuitAndShutDownChannel;
             return true;
 #else
             initParametersOut = new UnityRLInitParameters();
@@ -231,9 +233,15 @@ namespace Unity.MLAgents
             if (result.Header.Status != 200 || inputMessage.Header.Status != 200)
             {
                 m_IsOpen = false;
-                QuitCommandReceived?.Invoke();
+                NotifyQuitAndShutDownChannel();
             }
             return result.UnityInput;
+        }
+
+        void NotifyQuitAndShutDownChannel()
+        {
+            QuitCommandReceived?.Invoke();
+            m_Channel.ShutdownAsync().Wait();
         }
 
 #endregion
@@ -253,7 +261,6 @@ namespace Unity.MLAgents
             try
             {
                 m_Client.Exchange(WrapMessage(null, 400));
-                m_Channel.ShutdownAsync().Wait();
                 m_IsOpen = false;
             }
             catch
@@ -272,7 +279,7 @@ namespace Unity.MLAgents
             {
                 case CommandProto.Quit:
                     {
-                        QuitCommandReceived?.Invoke();
+                        NotifyQuitAndShutDownChannel();
                         return;
                     }
                 case CommandProto.Reset:
@@ -459,7 +466,7 @@ namespace Unity.MLAgents
                 // Not sure if the quit command is actually sent when a
                 // non 200 message is received.  Notify that we are indeed
                 // quitting.
-                QuitCommandReceived?.Invoke();
+                NotifyQuitAndShutDownChannel();
                 return message.UnityInput;
             }
             catch (Exception ex)
@@ -491,7 +498,7 @@ namespace Unity.MLAgents
                 }
 
                 m_IsOpen = false;
-                QuitCommandReceived?.Invoke();
+                NotifyQuitAndShutDownChannel();
                 return null;
             }
         }
