@@ -96,6 +96,8 @@ def run_training(python_version: str, csharp_version: str) -> bool:
         "--env-args",
         "-logFile",
         log_output_path,
+        "--env-args",
+        "'-logfile -'",
     ]
 
     res = subprocess.run(mla_learn_cmd)
@@ -154,8 +156,6 @@ def run_inference(env_path: str, output_path: str, model_extension: str) -> bool
         model_extension,
         "--mlagents-quit-after-seconds",
         str(model_override_timeout),
-        "--env-args",
-        "'-logfile -'",
     ]
     print(f"Starting inference with args {' '.join(args)}")
     res = subprocess.run(args, timeout=process_timeout)
