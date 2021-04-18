@@ -154,6 +154,8 @@ def run_inference(env_path: str, output_path: str, model_extension: str) -> bool
         model_extension,
         "--mlagents-quit-after-seconds",
         str(model_override_timeout),
+        "--env-args",
+        "'-logfile -'",
     ]
     print(f"Starting inference with args {' '.join(args)}")
     res = subprocess.run(args, timeout=process_timeout)
