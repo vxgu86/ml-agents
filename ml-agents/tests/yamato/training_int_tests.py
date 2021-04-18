@@ -96,8 +96,6 @@ def run_training(python_version: str, csharp_version: str) -> bool:
         "--env-args",
         "-logFile",
         log_output_path,
-        "--env-args",
-        "'-logfile -'",
     ]
 
     res = subprocess.run(mla_learn_cmd)
