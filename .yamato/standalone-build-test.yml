@@ -11,7 +11,7 @@ test_linux_standalone_{{ editor.version }}_{{ backend.backend }}:
   variables:
     UNITY_VERSION: {{ editor.version }}
   commands:
-    - sudo apt-get install lld
+    - sudo apt-get install -y lld
     - python3 -m pip install pyyaml --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple
     - python3 -m pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
     - unity-downloader-cli -u {{ editor.version }} -c editor -c il2cpp --wait --fast
