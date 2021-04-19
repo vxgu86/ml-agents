@@ -12,6 +12,7 @@ test_linux_training_int_{{ editor.version }}_{{ backend.backend }}:
     UNITY_VERSION: {{ editor.version }}
   commands:
     - |
+      sudo apt-get install -y lld
       sudo apt-get update && sudo apt-get install -y python3-venv
       python3 -m venv venv && source venv/bin/activate
       python -m pip install pyyaml --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple
