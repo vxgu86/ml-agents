@@ -15,10 +15,10 @@
 如果尚未安装，请按照[installation instructions](Installation.md)进行。
 然后，打开包含所有示例环境的Unity项目：
 
-1.导航至`Window -> Package Manager`，打开“包管理器”窗口。
-1.导航到ML-Agents软件包后单击它。
-1.找到“ 3D Ball”示例，然后单击`Import`。
-1.在**Project**窗口中，转到`Assets/ML-Agents/Examples/3DBall/Scenes`文件夹并打开`3DBall`场景文件。
+1. 导航至`Window -> Package Manager`，打开“包管理器”窗口。
+1. 导航到ML-Agents软件包后单击它。
+1. 找到“ 3D Ball”示例，然后单击`Import`。
+1. 在**Project**窗口中，转到`Assets/ML-Agents/Examples/3DBall/Scenes`文件夹并打开`3DBall`场景文件。
 
 ## 了解Unity环境
 
