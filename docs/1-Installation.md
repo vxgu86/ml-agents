@@ -2,7 +2,7 @@
 
 ML-Agents工具包包含几个组件：
 
--Unity软件包（[`com.unity.ml-agents`]（../com.unity.ml-agents/））包含
+-Unity软件包 ([`com.unity.ml-agents`](../com.unity.ml-agents/)) 包含
   将被集成到您的Unity项目中的Unity C＃SDK。此包装包含
   帮助您开始使用ML-Agents的样本。
 -Unity包
