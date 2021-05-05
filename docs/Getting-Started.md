@@ -1,153 +1,90 @@
-# Getting Started Guide
+# 入门指南
 
-This guide walks through the end-to-end process of opening one of our
-[example environments](Learning-Environment-Examples.md) in Unity, training an
-Agent in it, and embedding the trained model into the Unity environment. After
-reading this tutorial, you should be able to train any of the example
-environments. If you are not familiar with the
-[Unity Engine](https://unity3d.com/unity), view our
-[Background: Unity](Background-Unity.md) page for helpful pointers.
-Additionally, if you're not familiar with machine learning, view our
-[Background: Machine Learning](Background-Machine-Learning.md) page for a brief
-overview and helpful pointers.
+本指南逐步介绍了在Unity中打开[example environments](Learning-Environment-Examples.md)其中一个例子的端到端过程，训练智能体、将经过训练的模型嵌入到Unity环境中。
+看完后应该能够训练任何示例环境。如果不熟悉[Unity Engine](https://unity3d.com/unity)，查看[Background: Unity](Background-Unity.md)页面。
+此外，如果不熟悉机器学习，查看[Background: Machine Learning](Background-Machine-Learning.md)页面简要了解概述和有用的指示。
 
 ![3D Balance Ball](images/balance.png)
 
-For this guide, we'll use the **3D Balance Ball** environment which contains a
-number of agent cubes and balls (which are all copies of each other). Each agent
-cube tries to keep its ball from falling by rotating either horizontally or
-vertically. In this environment, an agent cube is an **Agent** that receives a
-reward for every step that it balances the ball. An agent is also penalized with
-a negative reward for dropping the ball. The goal of the training process is to
-have the agents learn to balance the ball on their head.
+在本指南中，将使用**3D Balance Ball**环境，其中包含多个立方体和球，每个立方体智能体试图通过水平旋转或垂直旋转来防止其上方的球掉落。在这个环境中，立方体智能体是一个**Agent**，它接收
+平衡球的每一步都会获得回报，丢球就会受负面奖励的处罚。训练过程的目标是让智能体学会平衡顶上的球。
 
-Let's get started!
 
-## Installation
+## 安装
 
-If you haven't already, follow the [installation instructions](Installation.md).
-Afterwards, open the Unity Project that contains all the example environments:
+如果尚未安装，请按照[installation instructions](Installation.md)进行。
+然后，打开包含所有示例环境的Unity项目：
 
-1. Open the Package Manager Window by navigating to `Window -> Package Manager`
-   in the menu.
-1. Navigate to the ML-Agents Package and click on it.
-1. Find the `3D Ball` sample and click `Import`.
-1. In the **Project** window, go to the
-   `Assets/ML-Agents/Examples/3DBall/Scenes` folder and open the `3DBall` scene
-   file.
+1.导航至`Window -> Package Manager`，打开“包管理器”窗口。
+1.导航到ML-Agents软件包后单击它。
+1.找到“ 3D Ball”示例，然后单击`Import`。
+1.在**Project**窗口中，转到`Assets/ML-Agents/Examples/3DBall/Scenes`文件夹并打开`3DBall`场景文件。
 
-## Understanding a Unity Environment
+## 了解Unity环境
 
-An agent is an autonomous actor that observes and interacts with an
-_environment_. In the context of Unity, an environment is a scene containing one
-or more Agent objects, and, of course, the other entities that an agent
-interacts with.
+智能体是观察_环境_并与之交互的自主actor，在Unity上下文中，环境是一个包含多个Agent对象的场景，以及与Agent交互的其他实体。
 
 ![Unity Editor](images/mlagents-3DBallHierarchy.png)
 
-**Note:** In Unity, the base object of everything in a scene is the
-_GameObject_. The GameObject is essentially a container for everything else,
-including behaviors, graphics, physics, etc. To see the components that make up
-a GameObject, select the GameObject in the Scene window, and open the Inspector
-window. The Inspector shows every component on a GameObject.
+**注意：**在Unity中，场景中所有事物的基础对象是_GameObject_。 GameObject本质上是其他所有内容的容器，包括行为，图形，物理behaviors, graphics, physics等。要查看组成GameObject的组件，在Scene窗口中选择GameObject，然后打开Inspector窗，会显示GameObject上的每个组件。
 
-The first thing you may notice after opening the 3D Balance Ball scene is that
-it contains not one, but several agent cubes. Each agent cube in the scene is an
-independent agent, but they all share the same Behavior. 3D Balance Ball does
-this to speed up training since all twelve agents contribute to training in
-parallel.
+打开3D平衡球场景后，可能会注意到的第一件事是它包含多个立方体，场景中的每个立方体都是一个独立agent，但它们都具有相同的Behavior。这样3D平衡球场景可以加速训练，因为所有十二个agents都在
+并训练。
 
-### Agent
+### 智能体Agent
 
-The Agent is the actor that observes and takes actions in the environment. In
-the 3D Balance Ball environment, the Agent components are placed on the twelve
-"Agent" GameObjects. The base Agent object has a few properties that affect its
-behavior:
+Agent是在环境中观察并采取行动的actor，在在3D平衡球环境中，Agent组件放置在十二个“Agent”游戏对象GameObjects。基本Agent对象具有一些会影响behavior的属性：
 
-- **Behavior Parameters** — Every Agent must have a Behavior. The Behavior
-  determines how an Agent makes decisions.
-- **Max Step** — Defines how many simulation steps can occur before the Agent's
-  episode ends. In 3D Balance Ball, an Agent restarts after 5000 steps.
+- **行为参数Behavior Parameters**-每个智能体都必须有Behavior。行为决定了智能体如何做出决定。
+- **Max Step（最大步长**）-定义在Agent的操作结束之前可以进行多少次模拟，在3D平衡球中，智能体经过5000步后重新启动。
 
-#### Behavior Parameters : Vector Observation Space
+#### 行为参数：矢量观测空间 Behavior Parameters : Vector Observation Space
 
-Before making a decision, an agent collects its observation about its state in
-the world. The vector observation is a vector of floating point numbers which
-contain relevant information for the agent to make decisions.
+智能体根据其其状态的观察结果做出决定，向量观测是浮点数向量，其中包含智能体做决策的相关信息。
 
-The Behavior Parameters of the 3D Balance Ball example uses a `Space Size` of 8.
-This means that the feature vector containing the Agent's observations contains
-eight elements: the `x` and `z` components of the agent cube's rotation and the
-`x`, `y`, and `z` components of the ball's relative position and velocity.
+3D平衡球示例的“行为参数Behavior Parameters”的“空间大小”`Space Size`为8，即包含Agent的观察的特征向量有八个元素：立方体旋转的`x`和`z`分量，以及球的相对位置和速度的`x`, `y`, `z`分量。
 
-#### Behavior Parameters : Actions
+#### 行为参数：动作 Behavior Parameters : Actions
 
-An Agent is given instructions in the form of actions.
-ML-Agents Toolkit classifies actions into two types: continuous and discrete.
-The 3D Balance Ball example is programmed to use continuous actions, which
-are a vector of floating-point numbers that can vary continuously. More specifically,
-it uses a `Space Size` of 2 to control the amount of `x` and `z` rotations to apply to
-itself to keep the ball balanced on its head.
+智能体Agent以动作actions形式接收，ML-Agents工具包将动作分为连续continuous和离散discrete两种类型。3D平衡球示例的编程中使用连续动作，是一个浮点数的向量，可以连续变化。
+进一步来说，它使用2的“空间大小”`Space Size`来控制要应用于的`x` 和 `z`轴的旋转量使球保持平衡。
 
-## Running a pre-trained model
+## 运行预训练模型
 
-We include pre-trained models for our agents (`.onnx` files) and we use the
-[Unity Inference Engine](Unity-Inference-Engine.md) to run these models inside
-Unity. In this section, we will use the pre-trained model for the 3D Ball
-example.
+这里为智能体已预训练了模型（`.onnx`文件），并且使用[Unity Inference Engine](Unity-Inference-Engine.md) 在Unity内运行这些模型。
+这里使用3D球示例的预训练模型。
 
-1. In the **Project** window, go to the
-   `Assets/ML-Agents/Examples/3DBall/Prefabs` folder. Expand `3DBall` and click
-   on the `Agent` prefab. You should see the `Agent` prefab in the **Inspector**
-   window.
+1.在**Project**窗口中，转到`Assets/ML-Agents/Examples/3DBall/Prefabs`文件夹。展开`3DBall`并单击`Agent` prefab。应该在**Inspector**中看到`Agent` prefab预制件。
 
-   **Note**: The platforms in the `3DBall` scene were created using the `3DBall`
-   prefab. Instead of updating all 12 platforms individually, you can update the
-   `3DBall` prefab instead.
+   **注意**：3`3DBall`场景中的平台都是使用`3DBall`预制件创建的，改动时无需单独更新所有12个平台，只需要更新`3DBall`prefab即可。
+
 
    ![Platform Prefab](images/platform_prefab.png)
 
-1. In the **Project** window, drag the **3DBall** Model located in
-   `Assets/ML-Agents/Examples/3DBall/TFModels` into the `Model` property under
-   `Behavior Parameters (Script)` component in the Agent GameObject
-   **Inspector** window.
+1. 在**Project**窗口中，拖动位于`Assets/ML-Agents/Examples/3DBall/TFModels`的**3DBall**模型到Agent GameObject **Inspector**窗口的`Behavior Parameters (Script)`组件的`Model`属性。
 
    ![3dball learning brain](images/3dball_learning_brain.png)
 
-1. You should notice that each `Agent` under each `3DBall` in the **Hierarchy**
-   windows now contains **3DBall** as `Model` on the `Behavior Parameters`.
-   **Note** : You can modify multiple game objects in a scene by selecting them
-   all at once using the search bar in the Scene Hierarchy.
-1. Set the **Inference Device** to use for this model as `CPU`.
-1. Click the **Play** button in the Unity Editor and you will see the platforms
-   balance the balls using the pre-trained model.
+1. 此时**Hierarchy**窗口中每个`3DBall`下的每个`Agent`现在在`Behavior Parameters`上包含**3DBall**作为`Model`。
+   **注意**：可以使用Scene Hierarchy中的搜索栏一次选择场景中的多个游戏对象来修改它们。
+1. 设置用于该模型的**Inference Device**为`CPU`。
+1. 单击Unity编辑器中的**Play**按钮，就能看到平台使用预训练模型平衡球。
 
-## Training a new model with Reinforcement Learning
+## 通过强化学习训练新模型
 
-While we provide pre-trained models for the agents in this environment, any
-environment you make yourself will require training agents from scratch to
-generate a new model file. In this section we will demonstrate how to use the
-reinforcement learning algorithms that are part of the ML-Agents Python package
-to accomplish this. We have provided a convenient command `mlagents-learn` which
-accepts arguments used to configure both training and inference phases.
+尽管在此环境中提供了预训练模型，但自己创造的环境将需要从零开始的训练智能体生成新的模型文件。这里演示如何使用ML-Agents Python软件包中的强化学习算法做到这一点，提供了一个方便的命令`mlagents-learn`，接受用于配置训练和推理阶段的参数。
 
-### Training the environment
+### 训练环境
 
-1. Open a command or terminal window.
-1. Navigate to the folder where you cloned the `ml-agents` repository. **Note**:
-   If you followed the default [installation](Installation.md), then you should
-   be able to run `mlagents-learn` from any directory.
-1. Run `mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun`.
-   - `config/ppo/3DBall.yaml` is the path to a default training
-     configuration file that we provide. The `config/ppo` folder includes training configuration
-     files for all our example environments, including 3DBall.
-   - `run-id` is a unique name for this training session.
-1. When the message _"Start training by pressing the Play button in the Unity
-   Editor"_ is displayed on the screen, you can press the **Play** button in
-   Unity to start training in the Editor.
+1. 打开命令行或终端窗口。
+1. 导航到克隆`ml-agents`存储库的文件夹。 
+**Note**: 如果遵循默认的[installation](Installation.md)，则应能够从任何目录运行`mlagents-learn`。
+1. 运行`mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun`。
+   - `config/ppo/3DBall.yaml`是默认训练配置文件的路径，`config/ppo`文件夹包括所有示例环境（包括3DBall）训练配置文件。
+   - `run-id`是此训练任务session的唯一名称。
+1. 当屏幕上显示 _"Start training by pressing the Play button in the Unity Editor"_ 时，点击 **Play** 按钮开始在Unity编辑器中训练。
 
-If `mlagents-learn` runs correctly and starts training, you should see something
-like this:
+如果`mlagents-learn`正确运行并开始训练，应该会看到如下提示：
 
 ```console
 INFO:mlagents_envs:
@@ -193,73 +130,47 @@ INFO:mlagents.trainers: first3DBallRun: 3DBallLearning: Step: 9000. Mean Reward:
 INFO:mlagents.trainers: first3DBallRun: 3DBallLearning: Step: 10000. Mean Reward: 27.284. Std of Reward: 28.667. Training.
 ```
 
-Note how the `Mean Reward` value printed to the screen increases as training
-progresses. This is a positive sign that training is succeeding.
+注意显示的`Mean Reward`值是如何随着训练而增加的，这是训练成功的积极信号。
 
-**Note**: You can train using an executable rather than the Editor. To do so,
-follow the instructions in
-[Using an Executable](Learning-Environment-Executable.md).
+**Note**: 可以使用可执行文件而不是编辑器进行训练，遵循[Using an Executable](Learning-Environment-Executable.md)中的指示。
 
-### Observing Training Progress
+### 观察训练进度
 
-Once you start training using `mlagents-learn` in the way described in the
-previous section, the `ml-agents` directory will contain a `results`
-directory. In order to observe the training process in more detail, you can use
-TensorBoard. From the command line run:
+开始使用`mlagents-learn`进行训练后，`ml-agents`目录将包含`results`目录。为了更详细地观察训练过程，可以使用TensorBoard从命令行运行：
 
 ```sh
 tensorboard --logdir results
 ```
 
-Then navigate to `localhost:6006` in your browser to view the TensorBoard
-summary statistics as shown below. For the purposes of this section, the most
-important statistic is `Environment/Cumulative Reward` which should increase
-throughout training, eventually converging close to `100` which is the maximum
-reward the agent can accumulate.
+然后在浏览器中导航到`localhost:6006`查看TensorBoard汇总统计信息如下所示。就本节而言，重要的统计数据是`Environment/Cumulative Reward`，应该在整个训练过程中不断增加，最终收敛到接近`100`的最大值，这是智能体可以积累的最大奖励。
 
 ![Example TensorBoard Run](images/mlagents-TensorBoard.png)
 
-## Embedding the model into the Unity Environment
+## 将模型嵌入到Unity环境中
 
-Once the training process completes, and the training process saves the model
-(denoted by the `Saved Model` message) you can add it to the Unity project and
-use it with compatible Agents (the Agents that generated the model). **Note:**
-Do not just close the Unity Window once the `Saved Model` message appears.
-Either wait for the training process to close the window or press `Ctrl+C` at
-the command-line prompt. If you close the window manually, the `.onnx` file
-containing the trained model is not exported into the ml-agents folder.
+训练过程完成后，保存模型（由`Saved Model`消息提示）后可将其添加到Unity项目中，与生成模型的智能体一起使用。
+**Note:** `Saved Model`消息出现时不要只关闭Unity窗口，等待训练进程关闭窗口，或在命令行提示符下点击`Ctrl+C`。
+手动关闭窗口的话，`.onnx`文件（训练模型文件）不会导出到ml-agents文件夹中。
 
-If you've quit the training early using `Ctrl+C` and want to resume training,
-run the same command again, appending the `--resume` flag:
+如果已使用`Ctrl+C`提前退出了训练，想恢复训练的话再次运行相同的命令，并附加`--resume`标志：
 
 ```sh
 mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun --resume
 ```
 
-Your trained model will be at `results/<run-identifier>/<behavior_name>.onnx` where
-`<behavior_name>` is the name of the `Behavior Name` of the agents corresponding
-to the model. This file corresponds to your model's latest checkpoint. You can
-now embed this trained model into your Agents by following the steps below,
-which is similar to the steps described [above](#running-a-pre-trained-model).
+训练的模型是`results/<run-identifier>/<behavior_name>.onnx`，其中`<behavior_name>`是相应智能体对应模型的`Behavior Name`的名称。
+该文件对应于模型的最新检查点，可以按照以下步骤将此经过训练的模型嵌入Agents中，
+与[上述步骤](#running-a-pre-trained-model)类似。
 
-1. Move your model file into
-   `Project/Assets/ML-Agents/Examples/3DBall/TFModels/`.
-1. Open the Unity Editor, and select the **3DBall** scene as described above.
-1. Select the **3DBall** prefab Agent object.
-1. Drag the `<behavior_name>.onnx` file from the Project window of the Editor to
-   the **Model** placeholder in the **Ball3DAgent** inspector window.
-1. Press the **Play** button at the top of the Editor.
+1. 将模型文件移到`Project/Assets/ML-Agents/Examples/3DBall/TFModels/`。
+1. 打开Unity编辑器，如上所述选择**3DBall**场景。
+1. 选择**3DBall** prefab Agent对象。
+1. 将`<behavior_name>.onnx`文件从编辑器的Project窗口拖到**Ball3DAgent** inspector窗口的**Model**占位符。
+1. 按下编辑器顶部的**Play**按钮。
 
-## Next Steps
+## 下一步
 
-- For more information on the ML-Agents Toolkit, in addition to helpful
-  background, check out the [ML-Agents Toolkit Overview](ML-Agents-Overview.md)
-  page.
-- For a "Hello World" introduction to creating your own Learning Environment,
-  check out the
-  [Making a New Learning Environment](Learning-Environment-Create-New.md) page.
-- For an overview on the more complex example environments that are provided in
-  this toolkit, check out the
-  [Example Environments](Learning-Environment-Examples.md) page.
-- For more information on the various training options available, check out the
-  [Training ML-Agents](Training-ML-Agents.md) page.
+- 有关ML-Agents工具包的更多信息，查看[ML-Agents Toolkit Overview](ML-Agents-Overview.md)。
+- 有关创建自己的学习环境的“ Hello World”简介，查看[Making a New Learning Environment](Learning-Environment-Create-New.md)。
+- 有关在工具包中提供的更复杂的示例环境的概述，查看[Example Environments](Learning-Environment-Examples.md)。
+- 有关可用的各种训练选项的详细信息，查看[Training ML-Agents](Training-ML-Agents.md)。 
