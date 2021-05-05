@@ -49,8 +49,7 @@ git clone --branch release_17 https://github.com/Unity-Technologies/ml-agents.gi
 
 ### 安装`com.unity.ml-agents` Unity软件包
 
-Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager registry](https://docs.unity3d.com/Manual/upm-ui-install.html)安装`com.unity.ml-agents`包
-[直接从Package Manager注册表中]（https://docs.unity3d.com/Manual/upm-ui-install.html）。
+Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager registry](https://docs.unity3d.com/Manual/upm-ui-install.html)安装`com.unity.ml-agents`包。
 需确保在'Advanced'下拉列表中启用'Preview Packages'找到该软件包的最新预览版。
 
 **注意：**如果没有在“包管理器”中看到ML-Agents包
@@ -83,66 +82,51 @@ Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager 
 
 要安装`com.unity.ml-agents.extensions`软件包，需要先克隆存储库，然后类似于上面的步骤完成本地安装。
 在前面概述
-[Advanced: Local Installation for Development](#高级-用于开发的本地安装)
+[Advanced: Local Installation for Development](#高级用于开发的本地安装-1)
 部分。完整的安装步骤在
 [package documentation](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation)。
 
 ### 安装`mlagents` Python软件包
 
-安装`mlagents` Python软件包涉及安装其他Python
-mlagents依赖的软件包。因此，如果您遇到以下问题，可能会遇到安装问题
-您的计算机具有已安装的所有依赖项的较旧版本。
-因此，我们支持的安装`mlagents`的路径是利用Python
-虚拟环境。虚拟环境提供了一种隔离
-依赖于每个项目，并且在Mac / Windows / Linux上受支持。我们
-提供专门的[虚拟环境指南]（Using-Virtual-Environment.md）。
+安装`mlagents` Python软件包涉及安装mlagents依赖的其他Python软件包。因此如果计算机具有已安装的依赖项的较旧版本，可能会遇到安装问题。
+因此，支持的安装`mlagents`方式是利用Python Virtual Environments。虚拟环境可以隔离每个项目的依赖，并且在Mac / Windows / Linux上受支持。
+可参见[虚拟环境指南]（Using-Virtual-Environment.md）。
 
 #### （Windows）安装PyTorch
 
-在Windows上，您必须先单独安装PyTorch软件包，然后才能
-安装ML-Agents。激活您的虚拟环境并从命令行运行：
+在Windows上，必须先单独安装PyTorch软件包，然后才能安装ML-Agents。激活虚拟环境并从命令行运行：
 
 ```sh
-pip3安装割炬〜= 1.7.1 -f https://download.pytorch.org/whl/torch_stable.html
+pip3 install torch~=1.7.1 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-请注意，在Windows上，您可能还需要Microsoft的
-[Visual C ++可再发行]（https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads）
-如果您还没有的话。请参阅[PyTorch安装指南]（https://pytorch.org/get-started/locally/）
-有关更多安装选项和版本的信息。
+请注意，在Windows上，可能还需要Microsoft的
+[Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+更多有关安装选项和版本的信息参阅[PyTorch installation guide](https://pytorch.org/get-started/locally/)。
 
 #### 安装`mlagents`
 
-要安装`mlagents` Python软件包，请激活您的虚拟环境并
-从命令行运行：
+要安装`mlagents` Python软件包，激活虚拟环境并从命令行运行：
 
 ```sh
 python -m pip install mlagents == 0.26.0
 ```
 
-请注意，这将从PyPi安装`mlagents`，从克隆的_not_安装
-资料库。如果安装正确，则应该可以运行
-mlagents-learn --help`，之后您将看到命令
-可以与`mlagents-learn`一起使用的行参数。
+这将从PyPi安装`mlagents`，而不是从库中克隆安装。如果安装正确，可以运行`mlagents-learn --help`看到可以与`mlagents-learn`一起使用的命令行参数。
 
-通过安装`mlagents`软件包，
-[setup.py文件]（../ ml-agents / setup.py）也已安装。这些包括
-[PyTorch]（Background-PyTorch.md）（需要具有AVX支持的CPU）。
+这种方式安装`mlagents`软件包，[setup.py file](../ml-agents/setup.py)中的依赖项也会一起安装，包括[PyTorch](Background-PyTorch.md)（需要具有AVX支持的CPU）。
 
 #### 高级：用于开发的本地安装
 
-如果您打算对`mlagents`或`mlagents_envs`进行修改，则应
-从克隆的存储库而不是从PyPi安装软件包。去做
-为此，您将需要分别安装`mlagents`和`mlagents_envs`。从
-存储库的根目录，运行：
+如果打算对`mlagents`或`mlagents_envs`进行修改，则应从克隆的存储库而不是从PyPi安装软件包。为此，需要分别安装`mlagents`和`mlagents_envs`。从存储库的根目录，运行：
 
 ```sh
-pip3安装割炬-f https://download.pytorch.org/whl/torch_stable.html
+pip3 install torch -f https://download.pytorch.org/whl/torch_stable.html
 pip3 install -e ./ml-agents-envs
 pip3 install -e ./ml-agents
 ```
 
-运行带有-e标志的pip将使您对Python文件进行更改
+运行pip带有-e标志将使对Python文件进行更改
 直接运行，并在运行`mlagents-learn`时反映出来。这很重要
 按照`mlagents`软件包的顺序安装这些软件包
 `mlagents_envs`，并以其他顺序安装将下载
