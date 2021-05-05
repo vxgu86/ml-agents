@@ -126,22 +126,13 @@ pip3 install -e ./ml-agents-envs
 pip3 install -e ./ml-agents
 ```
 
-运行pip带有-e标志将使对Python文件进行更改
-直接运行，并在运行`mlagents-learn`时反映出来。这很重要
-按照`mlagents`软件包的顺序安装这些软件包
-`mlagents_envs`，并以其他顺序安装将下载
-来自PyPi的`mlagents_envs`。
+运行pip带有-e标志将可直接对Python文件进行更改，并在运行`mlagents-learn`时反映出来。
+注意按照这个顺序安装这些软件包，`mlagents`软件包依赖`mlagents_envs`，按其他顺序安装将会自动下载来自PyPi的`mlagents_envs`。
 
 ## 下一步
 
-[入门]（Getting-Started.md）指南包含一些简短的教程
-在Unity中设置ML-Agents工具包，运行预先训练的模型，
-除了建筑和培训环境。
+[Getting Started](Getting-Started.md) 指南包含一些简短的教程，主要是在Unity中设置ML-Agents工具包，运行预先训练的模型，以及构建环境和训练智能体。
 
 ## 帮助
 
-如果您遇到有关ML-Agent的任何问题，请参阅我们的[FAQ]（FAQ.md）和
-我们的[Limitations]（Limitations.md）页面。如果找不到任何东西，请
-[提交问题]（https://github.com/Unity-Technologies/ml-agents/issues）和
-确保引用有关OS，Python版本和确切错误的相关信息
-消息（尽可能）。 
+如果遇到有关ML-Agent的任何问题，请参阅[FAQ](FAQ.md)和[Limitations](Limitations.md)页面。如果找不到有帮助的东西，[submit an issue](https://github.com/Unity-Technologies/ml-agents/issues)，并尽可能提供有关OS，Python版本和确切错误的相关信息。
