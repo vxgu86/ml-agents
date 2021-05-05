@@ -83,7 +83,7 @@ Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager 
 
 要安装`com.unity.ml-agents.extensions`软件包，需要先克隆存储库，然后类似于上面的步骤完成本地安装。
 在前面概述
-[Advanced: Local Installation for Development](#advanced-local-installation-for-development-1)
+[Advanced: Local Installation for Development](#高级-用于开发的本地安装)
 部分。完整的安装步骤在
 [package documentation](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation)。
 
