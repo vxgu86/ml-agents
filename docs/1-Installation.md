@@ -44,31 +44,36 @@ git clone --branch release_17 https://github.com/Unity-Technologies/ml-agents.gi
 
 #### 高级：用于开发的本地安装
 
-如果您计划修改或扩展存储库，则需要克隆存储库。
-ML-Agents工具包可满足您的需求。如果您打算做出这些改变
-返回，请确保克隆`main`分支（通过省略`--branch release_17`
-从上面的命令）。看到我们的
-[贡献准则]（../ com.unity.ml-agents / CONTRIBUTING.md）了解更多
-有关为ML-Agents Toolkit做出贡献的信息。
+如果计划修改或扩展存储库，则需要克隆本存储库。如果打算将这些改变提交给主库，请克隆`main`分支（省略`--branch release_17`）。
+可查看[Contributions Guidelines](../com.unity.ml-agents/CONTRIBUTING.md)了解更多有关为ML-Agents Toolkit做贡献的信息。
 
 ### 安装`com.unity.ml-agents` Unity软件包
 
-Unity ML-Agents C＃SDK是Unity软件包。您可以安装
-`com.unity.ml-agents`包
+Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager registry](https://docs.unity3d.com/Manual/upm-ui-install.html)安装`com.unity.ml-agents`包
 [直接从Package Manager注册表中]（https://docs.unity3d.com/Manual/upm-ui-install.html）。
-请确保在“高级”下拉列表中启用“预览包”
-为了找到该软件包的最新预览版。
+需确保在'Advanced'下拉列表中启用'Preview Packages'找到该软件包的最新预览版。
 
-**注意：**如果您没有在“包管理器”中看到ML-Agents包
-请按照下面的[高级安装说明]（＃advanced-local-installation-for-development）。
+**注意：**如果没有在“包管理器”中看到ML-Agents包
+请按照下面的步骤安装。
 
 #### 高级：用于开发的本地安装
 
-您可以[添加本地]（https://docs.unity3d.com/Manual/upm-ui-local.html）
-`com.unity.ml-agents`软件包（从您刚刚克隆的存储库中）到您的
-项目：
+可以按照如下步骤[添加本地](https://docs.unity3d.com/Manual/upm-ui-local.html)将`com.unity.ml-agents`软件包（克隆的存储库中）添加到项目：
 
-1.导航至菜单“窗口”->“包管理器”。
-1.在软件包管理器窗口中，单击软件包列表左上方的“ +”按钮。
-1.选择“从磁盘添加软件包...”。
-1.导航到t 
+1.导航至菜单`Window` -> `Package Manager`
+2.在软件包管理器窗口中，单击软件包列表左上方的“ +”按钮。
+3.选择“从磁盘添加软件包...”。
+4.导航到`com.unity.ml-agents`文件夹
+5.选择 `package.json` 文件。
+
+<p align="center">
+  <img src="images/unity_package_manager_window.png"
+       alt="Unity Package Manager Window"
+       height="300"
+       border="10" />
+  <img src="images/unity_package_json.png"
+     alt="package.json"
+     height="300"
+     border="10" />
+</p>
+
