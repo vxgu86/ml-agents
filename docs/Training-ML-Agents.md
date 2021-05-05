@@ -72,7 +72,7 @@ where
   your training runs.
 
 See the
-[Getting Started Guide](Getting-Started.md#training-a-new-model-with-reinforcement-learning)
+[Getting Started Guide](2.1-Getting-Started.md#通过强化学习训练新模型)
 for a sample execution of the `mlagents-learn` command.
 
 #### Observing Training
