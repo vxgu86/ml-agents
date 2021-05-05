@@ -10,53 +10,39 @@ ML-Agents工具包包含几个组件：
   - [`gym_unity`](../gym-unity/) 为Unity场景提供Python包装器（Python-wrapper），支持OpenAI Gym接口。
 - Unity [Project](../Project/) 包含多个[example environments](Learning-Environment-Examples.md)，分别突出演示该工具包的各种功能以帮助入门。
 
-因此，要安装和使用ML-Agents工具包，您将需要：
-
+因此，要安装和使用ML-Agents工具包，将需要：
 - 安装Unity（2019.4或更高版本）
 - 安装Python（3.6.1或更高版本）
 - 克隆此存储库（可选）
-  - __Note:__ 如果不克隆存储库，则不会
-  能够访问示例环境和培训配置，或者
-  `com.unity.ml-agents.extensions`软件包。此外，
-  [入门指南]（Getting-Started.md）假定您已克隆了
-  资料库。
--安装`com.unity.ml-agents` Unity软件包
--安装`com.unity.ml-agents.extensions` Unity软件包（可选）
--安装`mlagents` Python软件包
+  - __注意:__ 如果不克隆存储库，则不能够访问示例环境和训练配置、`com.unity.ml-agents.extensions`软件包。[Getting Started Guide](Getting-Started.md)假定已克隆了本库。
+- 安装`com.unity.ml-agents`Unity软件包
+- 安装`com.unity.ml-agents.extensions` Unity软件包（可选）
+- 安装`mlagents`Python软件包
 
-###安装** Unity 2019.4 **或更高版本
+### 安装 **Unity 2019.4** 或更高版本
 
-[下载]（https://unity3d.com/get-unity/download）并安装Unity。我们
-强烈建议您通过Unity Hub安装Unity，因为它将
-使您能够管理多个Unity版本。
+[Download](https://unity3d.com/get-unity/download)并安装Unity。强烈建议通过Unity Hub安装Unity，能够管理多个Unity版本。
 
-###安装** Python 3.6.1 **或更高版本
+### 安装 **Python 3.6.1** 或更高版本
 
-我们建议[安装]（https://www.python.org/downloads/）Python 3.6或3.7。
-如果您使用的是Windows，请安装x86-64版本而不是x86。
-如果您的Python环境不包含`pip3`，请参阅以下内容
-[说明]（https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers）
-在安装它。
+建议[installing](https://www.python.org/downloads/)Python 3.6或3.7。
+如果使用的是Windows，安装x86-64版本而不是x86。
+如果Python环境不包含`pip3`，参阅以下内容
+[instructions](https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers)安装它。
 
-###克隆ML-Agents工具包存储库（可选）
+### 克隆ML-Agents工具包存储库（可选）
 
-既然您已经安装了Unity和Python，现在就可以安装Unity和
-Python软件包。您无需克隆存储库即可安装这些存储库
-软件包，但如果您想下载我们的库，则可以选择克隆存储库
-示例环境和训练配置以进行实验（某些
-我们的教程/指南中的假设您可以访问我们的示例环境）。
+安装Unity和Python软件包，无需克隆存储库即可安装这些存储库软件包。克隆存储库可同时下载示例环境和训练配置以进行实验。
 
-**注意：** Unity软件包随附一些示例。您只需要克隆
-如果您想探索更多示例，请访问存储库。
+**注意：** Unity软件包随附一些示例。
 
 ```sh
 git clone --branch release_17 https://github.com/Unity-Technologies/ml-agents.git
 ```
 
-`--branch release_17`选项将切换到最新版本的标签。
-释放。省略它会得到可能不稳定的`main`分支。
+`--branch release_17`选项将切换到最新版本的标签，省略它会下载到可能不稳定的`main`分支。
 
-####高级：用于开发的本地安装
+#### 高级：用于开发的本地安装
 
 如果您计划修改或扩展存储库，则需要克隆存储库。
 ML-Agents工具包可满足您的需求。如果您打算做出这些改变
@@ -65,7 +51,7 @@ ML-Agents工具包可满足您的需求。如果您打算做出这些改变
 [贡献准则]（../ com.unity.ml-agents / CONTRIBUTING.md）了解更多
 有关为ML-Agents Toolkit做出贡献的信息。
 
-###安装`com.unity.ml-agents` Unity软件包
+### 安装`com.unity.ml-agents` Unity软件包
 
 Unity ML-Agents C＃SDK是Unity软件包。您可以安装
 `com.unity.ml-agents`包
@@ -76,7 +62,7 @@ Unity ML-Agents C＃SDK是Unity软件包。您可以安装
 **注意：**如果您没有在“包管理器”中看到ML-Agents包
 请按照下面的[高级安装说明]（＃advanced-local-installation-for-development）。
 
-####高级：用于开发的本地安装
+#### 高级：用于开发的本地安装
 
 您可以[添加本地]（https://docs.unity3d.com/Manual/upm-ui-local.html）
 `com.unity.ml-agents`软件包（从您刚刚克隆的存储库中）到您的
