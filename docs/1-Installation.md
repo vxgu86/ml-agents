@@ -60,11 +60,11 @@ Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager 
 
 可以按照如下步骤[添加本地](https://docs.unity3d.com/Manual/upm-ui-local.html)将`com.unity.ml-agents`软件包（克隆的存储库中）添加到项目：
 
-1.导航至菜单`Window` -> `Package Manager`
-2.在软件包管理器窗口中，单击软件包列表左上方的“ +”按钮。
-3.选择“从磁盘添加软件包...”。
-4.导航到`com.unity.ml-agents`文件夹
-5.选择 `package.json` 文件。
+1. 导航至菜单`Window` -> `Package Manager`
+1. 在软件包管理器窗口中，单击软件包列表左上方的“ +”按钮。
+1. 选择“从磁盘添加软件包...”。
+1. 导航到`com.unity.ml-agents`文件夹
+1. 选择 `package.json` 文件。
 
 <p align="center">
   <img src="images/unity_package_manager_window.png"
