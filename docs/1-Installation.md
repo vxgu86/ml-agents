@@ -2,34 +2,20 @@
 
 ML-Agents工具包包含几个组件：
 
--Unity软件包 ([`com.unity.ml-agents`](../com.unity.ml-agents/)) 包含
-  将被集成到您的Unity项目中的Unity C＃SDK。此包装包含
-  帮助您开始使用ML-Agents的样本。
--Unity包
-  （[[.com.unity.ml-agents.extensions`]（../ com.unity.ml-agents.extensions /））
-  包含尚未准备好加入的实验性C＃/ Unity组件
-  基本的“ com.unity.ml-agents”包的名称。 `com.unity.ml-agents.extensions`
-  直接依赖于com.unity.ml-agents。
--三个Python软件包：
-  -[`mlagents`]（../ ml-agents /）包含用于以下方面的机器学习算法：
-    使您能够训练Unity场景中的行为。 ML-Agent的大多数用户
-    只需要直接安装`mlagents`。
-  -[`mlagents_envs`]（../ ml-agents-envs /）包含与之交互的Python API
-    一个Unity场景。它是促进数据消息传递的基础层
-    在Unity场景和Python机器学习算法之间进行切换。
-    因此，`mlagents`取决于`mlagents_envs`。
-  -[`gym_unity`]（../ gym-unity /）为您的Unity场景提供了Python包装器
-    支持OpenAI Gym界面。
--Unity [Project]（../ Project /）包含多个
-  [示例环境]（Learning-Environment-Examples.md）突出显示了
-  该工具包的各种功能可帮助您入门。
+- Unity软件包 ([`com.unity.ml-agents`](../com.unity.ml-agents/)) 包含将被集成到Unity项目中的Unity C# SDK，此包装包含帮助开始使用ML-Agents的样例。
+- Unity软件包([`com.unity.ml-agents.extensions`](../com.unity.ml-agents.extensions/)) 包含尚未准备好加入基本的`com.unity.ml-agents`包的实验性C#/Unity组件`com.unity.ml-agents.extensions`直接依赖于`com.unity.ml-agents`。
+- 三个Python软件包：
+  - [`mlagents`](../ml-agents/) 包含用于在Unity场景中训练行为的机器学习算法，大多数用户只需要直接安装`mlagents`。
+  - [`mlagents_envs`](../ml-agents-envs/) 包含一个与Unity场景交互的Python API，它是促进在Unity场景和Python机器学习算法之间进行数据消息传递的基础层，因此，`mlagents`依赖于 `mlagents_envs`。
+  - [`gym_unity`](../gym-unity/) 为Unity场景提供Python包装器（Python-wrapper），支持OpenAI Gym接口。
+- Unity [Project](../Project/) 包含多个[example environments](Learning-Environment-Examples.md)，分别突出演示该工具包的各种功能以帮助入门。
 
 因此，要安装和使用ML-Agents工具包，您将需要：
 
--安装Unity（2019.4或更高版本）
--安装Python（3.6.1或更高版本）
--克隆此存储库（可选）
-  -__注意：__如果不克隆存储库，则不会
+- 安装Unity（2019.4或更高版本）
+- 安装Python（3.6.1或更高版本）
+- 克隆此存储库（可选）
+  - __Note:__ 如果不克隆存储库，则不会
   能够访问示例环境和培训配置，或者
   `com.unity.ml-agents.extensions`软件包。此外，
   [入门指南]（Getting-Started.md）假定您已克隆了
