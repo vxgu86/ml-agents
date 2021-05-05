@@ -77,3 +77,87 @@ Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager 
      border="10" />
 </p>
 
+如果要按照文档中的示例进行学习，则可以打开Unity中的`Project`文件夹，立即开始查看。
+
+### 安装`com.unity.ml-agents.extensions` Unity软件包（可选）
+
+要安装`com.unity.ml-agents.extensions`软件包，需要先克隆存储库，然后类似于上面的步骤完成本地安装。
+在前面概述
+[Advanced: Local Installation for Development](#advanced-local-installation-for-development-1)
+部分。完整的安装步骤在
+[package documentation](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation)。
+
+### 安装`mlagents` Python软件包
+
+安装`mlagents` Python软件包涉及安装其他Python
+mlagents依赖的软件包。因此，如果您遇到以下问题，可能会遇到安装问题
+您的计算机具有已安装的所有依赖项的较旧版本。
+因此，我们支持的安装`mlagents`的路径是利用Python
+虚拟环境。虚拟环境提供了一种隔离
+依赖于每个项目，并且在Mac / Windows / Linux上受支持。我们
+提供专门的[虚拟环境指南]（Using-Virtual-Environment.md）。
+
+#### （Windows）安装PyTorch
+
+在Windows上，您必须先单独安装PyTorch软件包，然后才能
+安装ML-Agents。激活您的虚拟环境并从命令行运行：
+
+```sh
+pip3安装割炬〜= 1.7.1 -f https://download.pytorch.org/whl/torch_stable.html
+```
+
+请注意，在Windows上，您可能还需要Microsoft的
+[Visual C ++可再发行]（https://support.microsoft.com/zh-cn/help/2977003/the-latest-supported-visual-c-downloads）
+如果您还没有的话。请参阅[PyTorch安装指南]（https://pytorch.org/get-started/locally/）
+有关更多安装选项和版本的信息。
+
+#### 安装`mlagents`
+
+要安装`mlagents` Python软件包，请激活您的虚拟环境并
+从命令行运行：
+
+```sh
+python -m pip install mlagents == 0.26.0
+```
+
+请注意，这将从PyPi安装`mlagents`，从克隆的_not_安装
+资料库。如果安装正确，则应该可以运行
+mlagents-learn --help`，之后您将看到命令
+可以与`mlagents-learn`一起使用的行参数。
+
+通过安装`mlagents`软件包，
+[setup.py文件]（../ ml-agents / setup.py）也已安装。这些包括
+[PyTorch]（Background-PyTorch.md）（需要具有AVX支持的CPU）。
+
+#### 高级：用于开发的本地安装
+
+如果您打算对`mlagents`或`mlagents_envs`进行修改，则应
+从克隆的存储库而不是从PyPi安装软件包。去做
+为此，您将需要分别安装`mlagents`和`mlagents_envs`。从
+存储库的根目录，运行：
+
+```sh
+pip3安装割炬-f https://download.pytorch.org/whl/torch_stable.html
+pip3 install -e ./ml-agents-envs
+pip3 install -e ./ml-agents
+```
+
+运行带有-e标志的pip将使您对Python文件进行更改
+直接运行，并在运行`mlagents-learn`时反映出来。这很重要
+按照`mlagents`软件包的顺序安装这些软件包
+`mlagents_envs`，并以其他顺序安装将下载
+来自PyPi的`mlagents_envs`。
+
+## 下一步
+
+[入门]（Getting-Started.md）指南包含一些简短的教程
+在Unity中设置ML-Agents工具包，运行预先训练的模型，
+除了建筑和培训环境。
+
+## 帮助
+
+如果您遇到有关ML-Agent的任何问题，请参阅我们的[FAQ]（FAQ.md）和
+我们的[Limitations]（Limitations.md）页面。如果找不到任何东西，请
+[提交问题]（https://github.com/Unity-Technologies/ml-agents/issues）和
+确保引用有关OS，Python版本和确切错误的相关信息
+消息（尽可能）。 
