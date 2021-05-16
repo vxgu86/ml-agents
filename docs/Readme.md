@@ -2,12 +2,12 @@
 
 ## Installation & Set-up
 
-- [Installation](Installation.md)
+- [1-Installation](1-Installation.md )
   - [Using Virtual Environment](Using-Virtual-Environment.md)
 
 ## Getting Started
 
-- [Getting Started Guide](Getting-Started.md)
+- [2.1-Getting-Started](2.1-Getting-Started.md)
 - [ML-Agents Toolkit Overview](ML-Agents-Overview.md)
   - [Background: Unity](Background-Unity.md)
   - [Background: Machine Learning](Background-Machine-Learning.md)
@@ -24,7 +24,7 @@
 
 ## Training & Inference
 
-- [Training ML-Agents](Training-ML-Agents.md)
+- [4.1-Training-ML-Agents.md](4.1-Training-ML-Agents.md)
   - [Training Configuration File](Training-Configuration-File.md)
   - [Using TensorBoard to Observe Training](Using-Tensorboard.md)
   - [Profiling Trainers](Profiling-Python.md)
