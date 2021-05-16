@@ -19,18 +19,18 @@ ML-Agents工具包包含几个组件：
 - 安装`com.unity.ml-agents.extensions` Unity软件包（可选）
 - 安装`mlagents`Python软件包
 
-### 安装 **Unity 2019.4** 或更高版本
+### 1.1 安装 **Unity 2019.4** 或更高版本
 
 [Download](https://unity3d.com/get-unity/download)并安装Unity。强烈建议通过Unity Hub安装Unity，能够管理多个Unity版本。
 
-### 安装 **Python 3.6.1** 或更高版本
+### 1.2 安装 **Python 3.6.1** 或更高版本
 
 建议[installing](https://www.python.org/downloads/)Python 3.6或3.7。
 如果使用的是Windows，安装x86-64版本而不是x86。
 如果Python环境不包含`pip3`，参阅以下内容
 [instructions](https://packaging.python.org/guides/installing-using-linux-tools/#installing-pip-setuptools-wheel-with-linux-package-managers)安装它。
 
-### 克隆ML-Agents工具包存储库（可选）
+### 1.3 克隆ML-Agents工具包存储库（可选）
 
 安装Unity和Python软件包，无需克隆存储库即可安装这些存储库软件包。克隆存储库可同时下载示例环境和训练配置以进行实验。
 
@@ -47,7 +47,7 @@ git clone --branch release_17 https://github.com/Unity-Technologies/ml-agents.gi
 如果计划修改或扩展存储库，则需要克隆本存储库。如果打算将这些改变提交给主库，请克隆`main`分支（省略`--branch release_17`）。
 可查看[Contributions Guidelines](../com.unity.ml-agents/CONTRIBUTING.md)了解更多有关为ML-Agents Toolkit做贡献的信息。
 
-### 安装`com.unity.ml-agents` Unity软件包
+### 1.4 安装`com.unity.ml-agents` Unity软件包
 
 Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager registry](https://docs.unity3d.com/Manual/upm-ui-install.html)安装`com.unity.ml-agents`包。
 需确保在'Advanced'下拉列表中启用'Preview Packages'找到该软件包的最新预览版。
@@ -76,9 +76,9 @@ Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager 
      border="10" />
 </p>
 
-如果要按照文档中的示例进行学习，则可以打开Unity中的`Project`文件夹，立即开始查看。
+如果要按照文档中的示例进行学习，可以打开Unity中的`Project`文件夹开始查看。
 
-### 安装`com.unity.ml-agents.extensions` Unity软件包（可选）
+### 1.5 安装`com.unity.ml-agents.extensions` Unity软件包（可选）
 
 要安装`com.unity.ml-agents.extensions`软件包，需要先克隆存储库，然后类似于上面的步骤完成本地安装。
 在前面概述
@@ -86,7 +86,7 @@ Unity ML-Agents C# SDK是一个Unity软件包，可以[直接从Package Manager 
 部分。完整的安装步骤在
 [package documentation](../com.unity.ml-agents.extensions/Documentation~/com.unity.ml-agents.extensions.md#installation)。
 
-### 安装`mlagents` Python软件包
+### 1.6 安装`mlagents` Python软件包
 
 安装`mlagents` Python软件包涉及安装mlagents依赖的其他Python软件包。因此如果计算机具有已安装的依赖项的较旧版本，可能会遇到安装问题。
 因此，支持的安装`mlagents`方式是利用Python Virtual Environments。虚拟环境可以隔离每个项目的依赖，并且在Mac / Windows / Linux上受支持。
